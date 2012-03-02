@@ -1,0 +1,31 @@
+{
+  "name":"facebook-connect",
+  "fullName":"Facebook Connect",
+  "version":"0.0.1",
+  "keywords": [
+       "sharing",
+       "social",
+       "share",
+       "facebook",
+       "twitter",
+       "mail"
+   ],
+   "description":"Facebook Connect",
+   "joshfire":{
+      "hooks":["xcodeproj", "bootstrap"],
+      "options":{
+      "schema":{
+        "appid":{
+          "type":"string",
+          "title":"App ID",
+          "required":true
+        },
+        "appsecret":{
+          "type":"string",
+          "title":"App secret",
+          "required":true
+        }
+      }
+    }
+   }
+}

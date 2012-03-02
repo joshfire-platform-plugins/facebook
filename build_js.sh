@@ -1,0 +1,1 @@
+cd phonegap-plugin-facebook-connect/lib/facebook-js-sdk && php all.js.php > ../../../facebook_js_sdk.js && cd ../../../ && patch < phonegap-plugin-facebook-connect/lib/facebook-js-patch 
