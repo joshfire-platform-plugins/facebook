@@ -3,6 +3,9 @@ module.exports = {
 
     runtime.copyFileInXcodeProject("phonegap-plugin-facebook-connect/native/ios/FacebookConnectPlugin.m","Project/Plugins/FacebookConnectPlugin.m");
     runtime.copyFileInXcodeProject("phonegap-plugin-facebook-connect/native/ios/FacebookConnectPlugin.h","Project/Plugins/FacebookConnectPlugin.h");
+    runtime.copyFileInXcodeProject("FBConnect-ios/","Project/Plugins/FBConnect/");
+    
+    //runtime.copyFileInXcodeProject("phonegap-plugin-facebook-connect/lib/facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj/","Project/Plugins/FBConnect/facebook-ios-sdk.xcodeproj/");
     runtime.copyFileInXcodeProject("facebook_js_sdk.js","www/_joshfire_factory_facebook_js_sdk.js");
     
     runtime.replaceInFile("Project/Plugins/FacebookConnectPlugin.m",/APP_SECRET/g,params["options"]["appsecret"],function(err) {
@@ -32,68 +35,98 @@ module.exports = {
 
               runtime.modifyPbxproj([
                 
-
-                ["add_file_to_group",[ "ShareKit-1.0", "B8FC1CF214DC05580091258F", "Externals"]],
-                ["add_group",[ "ShareKit-1.0", "B8FC1CF214DC05580091258F", "ShareKit-1.0"]],
-
-                ["add_file_to_group",["FBDialog.bundle", "B8FC1CE614DBFED80091258F", "ShareKit-1.0"]],
-                ["add_filereference",["FBDialog.bundle","plug-in","B8FC1CE614DBFED80091258F","FBDialog.bundle","\"<group>\""]],
-                ["add_buildfile",["FBDialog.bundle","B8FC1CE614DBFED80091258F","B8FC1CE314DBFED80091258F"]],
-                ["add_file_to_resources_phase",["FBDialog.bundle", "B8FC1CE314DBFED80091258F"]],
-
-                ["add_file_to_group",["ShareKit.bundle", "B8FC1CE814DBFED80091258F", "ShareKit-1.0"]],
-                ["add_filereference",["ShareKit.bundle","plug-in","B8FC1CE814DBFED80091258F","ShareKit.bundle","\"<group>\""]],
-                ["add_buildfile",["ShareKit.bundle","B8FC1CE814DBFED80091258F","B8FC1CE514DBFED80091258F"]],
-                ["add_file_to_resources_phase",["ShareKit.bundle", "B8FC1CE514DBFED80091258F"]],
+                ["add_filereference",["facebook-ios-sdk.xcodeproj","pb-project","B8F9EB4E1502457700DCC14B","Project/Plugins/FBConnect/facebook-ios-sdk.xcodeproj","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "facebook-ios-sdk.xcodeproj", "B8F9EB4E1502457700DCC14B", "B8438B4414C5E33D0061526C"]], //root
 
 
-                ["add_buildfile",["libShareKit.a","B8FC1CE714DBFED80091258F","B8FC1CE414DBFED80091258F"]],
-                ["add_filereference",["libShareKit.a","archive.ar","B8FC1CE714DBFED80091258F","libShareKit.a","\"<group>\""]],
-                ["add_file_to_group",["libShareKit.a", "B8FC1CE714DBFED80091258F","ShareKit-1.0" ]],
-                ["add_file_to_phase",["libShareKit.a","B8FC1CE414DBFED80091258F","B8438B4C14C5E33D0061526C","Frameworks"]],
+                ["add_group",[ "FBConnect", "B8F9EB5B1502461600DCC14B", "Plugins/FBConnect"]],
+                ["add_file_to_group_by_guid",[ "FBConnect", "B8F9EB5B1502461600DCC14B", "B8438B9214C5E33E0061526C"]], //Plugins
+                
+                ["add_group",[ "JSON", "B8F9EB5D1502461600DCC14B", "JSON"]],
+                ["add_file_to_group_by_guid",["JSON", "B8F9EB5D1502461600DCC14B","B8F9EB5B1502461600DCC14B" ]], //FBConnect
+                
 
                 
+                ["add_file_to_group_by_guid",["FBDialog.bundle", "B8F9EB5C1502461600DCC14B", "B8F9EB5B1502461600DCC14B"]], //FBConnect
+                ["add_filereference",["FBDialog.bundle","plug-in","B8F9EB5C1502461600DCC14B","FBDialog.bundle","\"<group>\""]],
+                ["add_buildfile",["FBDialog.bundle","B8F9EB5C1502461600DCC14B","B8F9EB741502461600DCC14B"]],
+                ["add_file_to_resources_phase",["FBDialog.bundle", "B8F9EB741502461600DCC14B"]],
+
+
+                ["quick_add_objc",["FBDialog.m","B8F9EB661502461600DCC14B","B8F9EB7E1502461600DCC14B", "FBDialog.m", "B8F9EB5B1502461600DCC14B", "B8438B4B14C5E33D0061526C", "Sources"]],
+
+                ["quick_add_objc",["FBLoginDialog.m","B8F9EB641502461600DCC14B","B8F9EB7D1502461600DCC14B", "FBLoginDialog.m", "B8F9EB5B1502461600DCC14B", "B8438B4B14C5E33D0061526C", "Sources"]],
+                ["quick_add_objc",["Facebook.m","B8F9EB611502461600DCC14B","B8F9EB7C1502461600DCC14B", "Facebook.m", "B8F9EB5B1502461600DCC14B", "B8438B4B14C5E33D0061526C", "Sources"]],
+                ["quick_add_objc",["FBRequest.m","B8F9EB601502461600DCC14B","B8F9EB7B1502461600DCC14B", "FBRequest.m", "B8F9EB5B1502461600DCC14B", "B8438B4B14C5E33D0061526C", "Sources"]],
+                ["quick_add_objc",["SBJsonWriter.m","B8F9EB731502461600DCC14B","B8F9EB7A1502461600DCC14B", "SBJsonWriter.m", "B8F9EB5D1502461600DCC14B", "B8438B4B14C5E33D0061526C", "Sources"]],
+                ["quick_add_objc",["SBJsonParser.m","B8F9EB711502461600DCC14B","B8F9EB791502461600DCC14B", "SBJsonParser.m", "B8F9EB5D1502461600DCC14B", "B8438B4B14C5E33D0061526C", "Sources"]],
+                ["quick_add_objc",["SBJsonBase.m","B8F9EB6F1502461600DCC14B","B8F9EB781502461600DCC14B", "SBJsonBase.m", "B8F9EB5D1502461600DCC14B", "B8438B4B14C5E33D0061526C", "Sources"]],
+                ["quick_add_objc",["SBJSON.m","B8F9EB6D1502461600DCC14B","B8F9EB771502461600DCC14B", "SBJSON.m", "B8F9EB5D1502461600DCC14B", "B8438B4B14C5E33D0061526C", "Sources"]],
+                ["quick_add_objc",["NSString+SBJSON.m","B8F9EB6B1502461600DCC14B","B8F9EB761502461600DCC14B", "NSString+SBJSON.m", "B8F9EB5D1502461600DCC14B", "B8438B4B14C5E33D0061526C", "Sources"]], 
+                ["quick_add_objc",["NSObject+SBJSON.m","B8F9EB691502461600DCC14B","B8F9EB751502461600DCC14B", "NSObject+SBJSON.m", "B8F9EB5D1502461600DCC14B", "B8438B4B14C5E33D0061526C", "Sources"]],
+              
+
+                ["quick_add_objc",["FacebookConnectPlugin.m","B8F9EB691502461601DCC14B","B8F9EB751502461601DCC14B", "Plugins/FacebookConnectPlugin.m", "B8438B9214C5E33E0061526C", "B8438B4B14C5E33D0061526C", "Sources"]], //Plugins
                 
-                ["add_build_setting",["Debug", "FRAMEWORK_SEARCH_PATHS", "\"\\\"$(SRCROOT)/Project/Externals\\\"\"", "B8438B9714C5E33E0061526C"]],
-                ["add_build_setting",["Debug", "LIBRARY_SEARCH_PATHS", "\"\\\"$(SRCROOT)/Project/Externals/ShareKit-1.0\\\"\"", "B8438B9714C5E33E0061526C"]],
-                ["add_build_setting",["Debug", "OTHER_LDFLAGS", "\"-ObjC\"", "B8438B9714C5E33E0061526C"]],
+                ["add_filereference",["FacebookConnectPlugin.h","sourcecode.c.h","B8F9EB651502461601DCC14B","Plugins/FacebookConnectPlugin.h","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "FacebookConnectPlugin.h", "B8F9EB651502461601DCC14B", "B8438B9214C5E33E0061526C"]], //Plugins
+                 
+
+                ["add_filereference",["FBDialog.h","sourcecode.c.h","B8F9EB651502461600DCC14B","FBDialog.h","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "FBDialog.h", "B8F9EB651502461600DCC14B", "B8F9EB5B1502461600DCC14B"]], //FBConnect
                 
+                ["add_filereference",["JSON.h","sourcecode.c.h","B8F9EB671502461600DCC14B","JSON.h","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "JSON.h", "B8F9EB671502461600DCC14B", "B8F9EB5D1502461600DCC14B"]], //JSON
+
+                ["add_filereference",["FBLoginDialog.h","sourcecode.c.h","B8F9EB631502461600DCC14B","FBLoginDialog.h","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "FBLoginDialog.h", "B8F9EB631502461600DCC14B", "B8F9EB5B1502461600DCC14B"]], //FBConnect
+
+                ["add_filereference",["Facebook.h","sourcecode.c.h","B8F9EB621502461600DCC14B","Facebook.h","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "FBRequest.h", "B8F9EB621502461600DCC14B", "B8F9EB5B1502461600DCC14B"]], //FBConnect
+
+                ["add_filereference",["FBRequest.h","sourcecode.c.h","B8F9EB5F1502461600DCC14B","FBRequest.h","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "FBRequest.h", "B8F9EB5F1502461600DCC14B", "B8F9EB5B1502461600DCC14B"]], //FBConnect
+
+                ["add_filereference",["FBConnect.h","sourcecode.c.h","B8F9EB5E1502461600DCC14B","FBConnect.h","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "FBConnect.h", "B8F9EB5E1502461600DCC14B", "B8F9EB5B1502461600DCC14B"]], //FBConnect
+
+                ["add_filereference",["NSObject+SBJSON.h","sourcecode.c.h","B8F9EB681502461600DCC14B","NSObject+SBJSON.h","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "JSON.h", "B8F9EB681502461600DCC14B", "B8F9EB5D1502461600DCC14B"]], //JSON
+
+                ["add_filereference",["NSString+SBJSON.h","sourcecode.c.h","B8F9EB6A1502461600DCC14B","NSString+SBJSON.h","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "NSString+SBJSON.h", "B8F9EB6A1502461600DCC14B", "B8F9EB5D1502461600DCC14B"]], //JSON
+
+                ["add_filereference",["SBJSON.h","sourcecode.c.h","B8F9EB6C1502461600DCC14B","SBJSON.h","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "SBJSON.h", "B8F9EB6C1502461600DCC14B", "B8F9EB5D1502461600DCC14B"]], //JSON
+
+                ["add_filereference",["SBJsonBase.h","sourcecode.c.h","B8F9EB6E1502461600DCC14B","SBJsonBase.h","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "SBJsonBase.h", "B8F9EB6E1502461600DCC14B", "B8F9EB5D1502461600DCC14B"]], //JSON
+
+                ["add_filereference",["SBJsonParser.h","sourcecode.c.h","B8F9EB701502461600DCC14B","SBJsonParser.h","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "SBJsonParser.h", "B8F9EB701502461600DCC14B", "B8F9EB5D1502461600DCC14B"]], //JSON
+
+                ["add_filereference",["SBJsonWriter.h","sourcecode.c.h","B8F9EB721502461600DCC14B","SBJsonWriter.h","\"<group>\""]],
+                ["add_file_to_group_by_guid",[ "SBJsonWriter.h", "B8F9EB721502461600DCC14B", "B8F9EB5D1502461600DCC14B"]], //JSON
+
                 
-                ["add_build_setting",["Release", "FRAMEWORK_SEARCH_PATHS", "\"\\\"$(SRCROOT)/Project/Externals\\\"\"", "B8438B9814C5E33E0061526C"]],
-                ["add_build_setting",["Release", "LIBRARY_SEARCH_PATHS", "\"\\\"$(SRCROOT)/Project/Externals/ShareKit-1.0\\\"\"", "B8438B9814C5E33E0061526C"]],
-                ["add_build_setting",["Release", "OTHER_LDFLAGS", "\"-ObjC\"", "B8438B9814C5E33E0061526C"]],
+
+                ["add_target_dependency",["facebook-ios-sdk", "B8F9EB5A150245D000DCC14B","B8F9EB59150245D000DCC14B" ]],
+                ["add_dependency_to_target",["B8438B5114C5E33D0061526C","B8F9EB5A150245D000DCC14B" ]],
+
+                ["add_container_item_proxy",["facebook-ios-sdk", "B8F9EB59150245D000DCC14B","B8F9EB4E1502457700DCC14B", "D2AAC07D0554694100DB518D", "1" ]],
+                ["add_container_item_proxy",["facebook-ios-sdk", "B8F9EB551502457700DCC14B","B8F9EB4E1502457700DCC14B", "D2AAC07E0554694100DB518D", "2" ]],
 
 
-                ["add_file_to_group",["CFNetwork.framework", "B8FC1CF014DC03CB0091258F", "Frameworks"]],
-                ["add_filereference",["CFNetwork.framework","framework","B8FC1CF014DC03CB0091258F","System/Library/Frameworks/CFNetwork.framework","SDKROOT"]],
-                ["add_buildfile",["CFNetwork.framework","B8FC1CF014DC03CB0091258F","B8FC1CF114DC03CB0091258F"]],
-                ["add_file_to_frameworks_phase",["CFNetwork.framework","B8FC1CF114DC03CB0091258F"]],
+                ["add_group",[ "Products", "B8F9EB4F1502457700DCC14B", "Products"]],
+                ["add_file_to_group_by_guid",["libfacebook_ios_sdk.a", "B8F9EB561502457700DCC14B","B8F9EB4F1502457700DCC14B" ]],    
+                ["add_reference_proxy", ["libfacebook_ios_sdk.a", "B8F9EB561502457700DCC14B", "archive.ar", "libfacebook_ios_sdk.a", "B8F9EB551502457700DCC14B", "BUILT_PRODUCTS_DIR"]],
 
-                ["add_file_to_group",["MessageUI.framework", "B8FC1CEA14DC039E0091258F", "Frameworks"]],
-                ["add_filereference",["MessageUI.framework","framework","B8FC1CEA14DC039E0091258F","System/Library/Frameworks/MessageUI.framework","SDKROOT"]],
-                ["add_buildfile",["MessageUI.framework","B8FC1CEA14DC039E0091258F","B8FC1CEB14DC039E0091258F"]],
-                ["add_file_to_frameworks_phase",["MessageUI.framework","B8FC1CEB14DC039E0091258F"]],
 
-                ["add_file_to_group",["Security.framework", "B8FC1CEC14DC03B90091258F", "Frameworks"]],
-                ["add_filereference",["Security.framework","framework","B8FC1CEC14DC03B90091258F","System/Library/Frameworks/Security.framework","SDKROOT"]],
-                ["add_buildfile",["Security.framework","B8FC1CEC14DC03B90091258F","B8FC1CED14DC03B90091258F"]],
-                ["add_file_to_frameworks_phase",["Security.framework","B8FC1CED14DC03B90091258F"]],
+                ["add_project_reference",["facebook-ios-sdk.xcodeproj", "B8F9EB4E1502457700DCC14B", "B8F9EB4F1502457700DCC14B"]],
 
-                ["add_file_to_group",["Twitter.framework", "B8FC1CEE14DC03C00091258F", "Frameworks"]],
-                ["add_filereference",["Twitter.framework","framework","B8FC1CEE14DC03C00091258F","System/Library/Frameworks/Twitter.framework","SDKROOT"]],
-                ["add_buildfile",["Twitter.framework","B8FC1CEE14DC03C00091258F","B8FC1CEF14DC03C00091258F",true]],
-                ["add_file_to_frameworks_phase",["Twitter.framework","B8FC1CEF14DC03C00091258F"]],
-
-      /*
-                ["add_buildfile",["PGShareKit.m","B8FC1CF414DC079F0091258F","B8FC1CF514DC07A00091258F"]],
-                ["add_filereference",["PGShareKit.m","sourcecode.c.objc","B8FC1CF414DC079F0091258F","Plugins/PGShareKit.m","\"<group>\""]],
-                ["add_file_to_group",[ "PGShareKit.m", "B8FC1CF414DC079F0091258F", "Plugins"]],
-                ["add_file_to_phase",["PGShareKit.m", "B8FC1CF514DC07A00091258F", "B8438B4B14C5E33D0061526C", "Sources"]],
+                ["add_build_setting", ["Debug", "HEADER_SEARCH_PATHS", "/Users/Shared/PhoneGap/Frameworks/PhoneGap.framework/Headers", "B8438B9714C5E33E0061526C"]],
+                ["add_build_setting", ["Release", "HEADER_SEARCH_PATHS", "/Users/Shared/PhoneGap/Frameworks/PhoneGap.framework/Headers", "B8438B9814C5E33E0061526C"]]
                 
-                ["add_filereference",["PGShareKit.h","sourcecode.c.h","B8FC1CF314DC079F0091258F","Plugins/PGShareKit.h","\"<group>\""]],
-                ["add_file_to_group",[ "PGShareKit.h", "B8FC1CF314DC079F0091258F", "Plugins"]]
-        */        
-
               ],function(err) {
                 callback(err);
               });
