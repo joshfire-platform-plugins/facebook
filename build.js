@@ -151,7 +151,7 @@ module.exports = {
     })+";";
 
     //todo!
-    if (params.isPhonegap) {
+    if (params.deployconf.deployer=="xcodeproj") {
       runtime.readFile("phonegap-plugin-facebook-connect/www/pg-plugin-fb-connect.js",function(err, cnt_pg) {
         if (err) return callback(err);
         runtime.readFile("facebook_js_sdk.js",function(err, cnt_sdk) {
@@ -170,7 +170,7 @@ module.exports = {
 
     var add = '<div id="fb-root"></div>';
 
-    if (!params.isPhonegap) {
+    if (params.deployconf.deployer!="xcodeproj") {
 
       add+="<"+"script>(function() {"+
           "var e = document.createElement('script'); e.async = true;"+
