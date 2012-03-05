@@ -8,7 +8,7 @@ module.exports = {
     //runtime.copyFileInXcodeProject("phonegap-plugin-facebook-connect/lib/facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj/","Project/Plugins/FBConnect/facebook-ios-sdk.xcodeproj/");
     runtime.copyFileInXcodeProject("facebook_js_sdk.js","www/_joshfire_factory_facebook_js_sdk.js");
     
-    runtime.replaceInFile("Project/Plugins/FacebookConnectPlugin.m",/APP_SECRET/g,params["options"]["appsecret"],function(err) {
+    runtime.replaceInFile("Project/Plugins/FacebookConnectPlugin.m",/REPLACE_ME/g,params["options"]["appsecret"],function(err) {
 
 
 
