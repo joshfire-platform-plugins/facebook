@@ -9,11 +9,11 @@
        "facebook",
        "twitter",
        "mail"
-   ],
-   "description":"Facebook Connect",
-   "joshfire":{
-      "hooks":["xcodeproj", "bootstrap"],
-      "options":{
+  ],
+  "description":"Facebook Connect",
+  "joshfire":{
+    "hooks":["xcodeproj", "bootstrap"],
+    "options":{
       "schema":{
         "appid":{
           "type":"string",
@@ -25,7 +25,11 @@
           "title":"App secret",
           "required":true
         }
-      }
+      },
+      "form":[
+        "appid",
+        "appsecret"
+      ]
     }
-   }
+  }
 }
