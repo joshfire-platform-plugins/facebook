@@ -144,11 +144,40 @@ module.exports = {
 
  "bootstrap":function(runtime, params, callback) {
 
-  //TODO insert script tags, also to _joshfire_factory_facebook_js_sdk
-    runtime.readFile("phonegap-plugin-facebook-connect/www/pg-plugin-fb-connect.js",function(err, cnt) {
-      if (err) return callback(err);
+    params["content"]+="Joshfire.factory.plugins.facebookconnect = "+JSON.stringify({
+      "options":{
+        "appid":params["options"].appid
+      }
+    })+";";
 
-      callback(null, params["content"]+cnt);
-    });
+    //todo!
+    if (params["deployer"]=="xcodeproj") {
+      runtime.readFile("phonegap-plugin-facebook-connect/www/pg-plugin-fb-connect.js",function(err, cnt_pg) {
+        runtime.readFile("facebook_js_sdk.js",function(err, cnt_sdk) {
+          if (err) return callback(err);
+
+          callback(null, params["content"]+cnt_pg+cnt_sdk);
+
+        });
+      });
+    }
+  },
+
+ "startfile":function(runtime, params, callback) {
+
+    var add = '<div id="fb-root"></div>';
+    //todo!
+    if (params["deployer"]!="xcodeproj") {
+
+      add+="(function() {"+
+          "var e = document.createElement('script'); e.async = true;"+
+          "e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';"+
+          "document.getElementById('fb-root').appendChild(e);"+
+          "}());";
+      
+    }
+
+    callback(null, params["content"].replace(/<\/body>/,add+"</body>"));
   }
+  
 };
