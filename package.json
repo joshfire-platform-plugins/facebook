@@ -12,7 +12,7 @@
   ],
   "description":"Facebook Connect",
   "joshfire":{
-    "hooks":["xcodeproj", "bootstrap"],
+    "hooks":["xcodeproj", "bootstrap", "startfile"],
     "options":{
       "schema":{
         "appid":{
