@@ -160,6 +160,8 @@ module.exports = {
 
         });
       });
+    } else {
+      callback(null, params["content"]);
     }
   },
 
