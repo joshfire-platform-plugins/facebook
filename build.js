@@ -3,7 +3,7 @@ module.exports = {
 
     runtime.copyFileInXcodeProject("phonegap-plugin-facebook-connect/native/ios/FacebookConnectPlugin.m","Project/Plugins/FacebookConnectPlugin.m");
     runtime.copyFileInXcodeProject("phonegap-plugin-facebook-connect/native/ios/FacebookConnectPlugin.h","Project/Plugins/FacebookConnectPlugin.h");
-    runtime.copyFileInXcodeProject("FBConnect-ios/","Project/Plugins/FBConnect/");
+    runtime.copyFileInXcodeProject("FBConnect-ios/","Project/Plugins/FBConnect");
     
     //runtime.copyFileInXcodeProject("phonegap-plugin-facebook-connect/lib/facebook-ios-sdk/src/facebook-ios-sdk.xcodeproj/","Project/Plugins/FBConnect/facebook-ios-sdk.xcodeproj/");
     runtime.copyFileInXcodeProject("facebook_js_sdk.js","www/_joshfire_factory_facebook_js_sdk.js");
