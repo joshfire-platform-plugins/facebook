@@ -1,7 +1,8 @@
-// DEPRECATED (2012-07-12): to be removed once new add-ons system is up
-module.exports = {
-  "xcodeproj":function(runtime,params,callback) {
-
+/**
+ * @fileoverview xcodeproj hook that adds all needed files to the project
+ */
+define([], function () {
+  return function (runtime, params, callback) {
     runtime.copyFileInXcodeProject("phonegap-plugin-facebook-connect/native/ios/FacebookConnectPlugin.m","Project/Plugins/FacebookConnectPlugin.m");
     runtime.copyFileInXcodeProject("phonegap-plugin-facebook-connect/native/ios/FacebookConnectPlugin.h","Project/Plugins/FacebookConnectPlugin.h");
     runtime.copyFileInXcodeProject("FBConnect-ios/","Project/Plugins/FBConnect");
@@ -10,9 +11,6 @@ module.exports = {
     runtime.copyFileInXcodeProject("facebook_js_sdk.js","www/_joshfire_factory_facebook_js_sdk.js");
     
     runtime.replaceInFile("Project/Plugins/FacebookConnectPlugin.m",/REPLACE_ME/g,params["options"]["appsecret"],function(err) {
-
-
-
       runtime.readPlist("Project/PhoneGap.plist",function(err,data) {
         if (err) return callback(err);
 
@@ -138,50 +136,5 @@ module.exports = {
       });
 
     });
-    
-        
-
-  },
-
- "bootstrap":function(runtime, params, callback) {
-
-    params["content"]+="Joshfire.factory.plugins.facebookconnect = "+JSON.stringify({
-      "options":{
-        "appid":params["options"].appid
-      }
-    })+";";
-
-    //todo!
-    if (params.deployconf.deployer=="xcodeproj") {
-      runtime.readFile("phonegap-plugin-facebook-connect/www/pg-plugin-fb-connect.js",function(err, cnt_pg) {
-        if (err) return callback(err);
-        runtime.readFile("facebook_js_sdk.js",function(err, cnt_sdk) {
-          if (err) return callback(err);
-
-          callback(null, params["content"]+cnt_pg+cnt_sdk);
-
-        });
-      });
-    } else {
-      callback(null, params["content"]);
-    }
-  },
-
- "startfile":function(runtime, params, callback) {
-
-    var add = '<div id="fb-root"></div>';
-
-    if (params.deployconf.deployer!="xcodeproj") {
-
-      add+="<"+"script>(function() {"+
-          "var e = document.createElement('script'); e.async = true;"+
-          "e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';"+
-          "document.getElementById('fb-root').appendChild(e);"+
-          "}());</"+"script>";
-      
-    }
-
-    callback(null, params["content"].replace(/<\/body>/,add+"</body>"));
-  }
-  
-};
+  };
+});
